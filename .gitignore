@@ -1,0 +1,36 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+
+# Hardhat/Truffle artifacts
+artifacts/
+cache/
+build/
+dist/
+.coverage_artifacts/
+.coverage_cache/
+.coverage_contracts/
+coverage/
+coverageEnv/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Solidity compiler output
+bin/
+abi/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
