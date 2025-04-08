@@ -1,0 +1,9 @@
+VERSION="2.0.0"
+
+[[CURRENCIES]]
+code = "SOLA"
+name = "Sola"
+symbol = "SOLA"
+decimals = 6
+issuer = "GD3T6HSKD4AH2ZE2PYMJK6CWKDFSRC35C4J2ZH3FBUVVRN454FJALNPS"
+description = "Sola is a test token on the Stellar network, used for testing and development purposes."
