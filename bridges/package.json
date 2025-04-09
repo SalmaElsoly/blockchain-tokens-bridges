@@ -14,6 +14,7 @@
   "dependencies": {
     "@solana/kit": "^2.1.0",
     "@solana/spl-token": "^0.4.13",
+    "@stellar/stellar-sdk": "^13.2.0",
     "@types/node": "^22.14.0",
     "ethers": "^6.13.5",
     "ts-node": "^10.9.2",
