@@ -38,25 +38,7 @@ async function transferTokenOnStellar(
   asset: Asset,
   amount: number
 ): Promise<void> {
-  //const perciseAmount = Math.floor(amount * Math.pow(10, 6));
 
-  // const recipientAccount = await server.loadAccount(destinationAccount);
-  // const recipientKeypair = Keypair.fromPublicKey(destinationAccount);
-  // const trustTx = new TransactionBuilder(recipientAccount, {
-  //   fee: "100000",
-  //   networkPassphrase: Networks.TESTNET,
-  // })
-  //   .addOperation(
-  //     Operation.changeTrust({
-  //       asset: asset,
-  //       limit: "1000000000",
-  //     })
-  //   )
-  //   .setTimeout(60)
-  //   .build();
-
-  // trustTx.sign(recipientKeypair);
-  // await server.submitTransaction(trustTx);
   const transaction = new TransactionBuilder(sourceAccount, {
     fee: "100000",
     networkPassphrase: Networks.TESTNET,
@@ -117,7 +99,6 @@ async function main() {
       console.log(
         `Tokens locked by ${user} for ${amount} on ${destinationChain} to ${recipient}`
       );
-      const recipientStellar = await server.loadAccount(recipient);
       await transferTokenOnStellar(
         server,
         account,
