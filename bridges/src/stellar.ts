@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 import {
   Networks,
   TransactionBuilder,
@@ -8,17 +7,6 @@ import {
   Horizon,
   Account,
 } from "@stellar/stellar-sdk";
-
-function connectToEthereum(): Promise<ethers.Signer> {
-  const provider = new ethers.WebSocketProvider(
-    "wss://ethereum-sepolia-rpc.publicnode.com"
-  );
-  const signer = new ethers.Wallet(
-    "620e0792ed252ea1a26f3dbcb377e9a5a343b64ae5cd348f2c0a430b585d5676",
-    provider
-  );
-  return Promise.resolve(signer);
-}
 
 async function connectToStellar(): Promise<{
   server: Horizon.Server;
@@ -38,7 +26,6 @@ async function transferTokenOnStellar(
   asset: Asset,
   amount: number
 ): Promise<void> {
-
   const transaction = new TransactionBuilder(sourceAccount, {
     fee: "100000",
     networkPassphrase: Networks.TESTNET,
@@ -73,41 +60,15 @@ async function transferTokenOnStellar(
 }
 
 async function main() {
-  const signer = await connectToEthereum();
-  const { server, account } = await connectToStellar();
-  console.log("Connected to Ethereum and Stellar");
-
-  const solaContractAddress = "0x040aF936d9b44B9B00eD7b931e150A3aFEF57F9f";
-
-  const contract = new ethers.Contract(
-    solaContractAddress,
-    [
-      "event TokensLocked(address indexed user, uint256 amount, string destinationChain, string recipient)",
-    ],
-    signer
-  );
-
-  const customAsset = new Asset(
-    "SOLA",
-    "GD3T6HSKD4AH2ZE2PYMJK6CWKDFSRC35C4J2ZH3FBUVVRN454FJALNPS"
-  );
-
-  contract.on(
-    "TokensLocked",
-    async (user, amount, destinationChain, recipient) => {
-      amount = Number(amount) / Math.pow(10, 18);
-      console.log(
-        `Tokens locked by ${user} for ${amount} on ${destinationChain} to ${recipient}`
-      );
-      await transferTokenOnStellar(
-        server,
-        account,
-        recipient,
-        customAsset,
-        amount
-      );
-    }
-  );
+    const { server, account } = await connectToStellar();
+    const destinationAccount =
+        "GDQYZBWGNVT2VJLVXJP32YOBTULUTZDAMSJYKTPDOHVRCIRB4SXORMZU";
+    const amount = 20;
+    const asset = new Asset(
+      "SOLA",
+      "GD3T6HSKD4AH2ZE2PYMJK6CWKDFSRC35C4J2ZH3FBUVVRN454FJALNPS"
+    );
+    transferTokenOnStellar(server, account, destinationAccount, asset, amount);
 }
 
 main();

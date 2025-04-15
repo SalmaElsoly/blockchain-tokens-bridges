@@ -100,7 +100,7 @@ function initializeConnection(): Connection {
     commitment: "confirmed",
     wsEndpoint: rpcUrl.replace("http", "ws"),
   });
-  // Redacting part of the RPC URL for security/log clarity
+
   console.log(`Initialized Connection to Solana RPC: ${rpcUrl.slice(0, -32)}`);
   return connection;
 }
@@ -146,10 +146,10 @@ async function transferTokenOnSolana(
 
   const decimals = await getNumberDecimals(mint, connection);
 
-  //from human readable to solana readable
+  
   const perciseAmount = Math.floor(amount * Math.pow(10, decimals));
   const transferTransaction = createTransferInstruction(
-    // Those addresses are the Associated Token Accounts belonging to the sender and receiver
+    
     senderAssociatedTokenAddress.address,
     recipientAssociatedTokenAddress.address,
     keypair.publicKey,

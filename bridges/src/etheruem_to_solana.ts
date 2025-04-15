@@ -51,7 +51,7 @@ function initializeConnection(): Connection {
     commitment: "confirmed",
     wsEndpoint: rpcUrl.replace("http", "ws"),
   });
-  // Redacting part of the RPC URL for security/log clarity
+  
   console.log(`Initialized Connection to Solana RPC: ${rpcUrl.slice(0, -32)}`);
   return connection;
 }
@@ -176,7 +176,7 @@ async function main() {
   contract.on(
     "TokensLocked",
     async (user, amount, destinationChain, recipient) => {
-      //from ethereum to human readable
+     
       amount = Number(amount) / Math.pow(10, 18);
       console.log(
         `Tokens Locked: User - ${user}, Amount - ${amount}, Destination Chain - ${destinationChain}, Recipient - ${recipient}`
